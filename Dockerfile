@@ -1,8 +1,10 @@
 FROM bitnami/kubectl:1.19.4
 
 WORKDIR /plugin
+USER root
+COPY plugin.sh /plugin
+RUN chmod +x /plugin/plugin.sh
+RUN chown -R 1001:1001 /plugin
 
-COPY plugin.sh .
-RUN chmod +x plugin.sh
-
-ENTRYPOINT plugin.sh
+USER 1001
+ENTRYPOINT /plugin/plugin.sh
