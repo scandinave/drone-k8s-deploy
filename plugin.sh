@@ -16,8 +16,9 @@ echo "${PLUGIN_KUBECONFIG}" > /plugin/config
 
 export KUBECONFIG=/plugin/config
 
-if [ "${PLUGIN_MODE}" = "delete" ] ; then
-  kubectl apply -f "${PLUGIN_YAML}"
-else
+if [ -n "${PLUGIN_MODE}" ] && [ "${PLUGIN_MODE}" = "delete" ] ; then
   kubectl delete -f "${PLUGIN_YAML}"
+else
+  # Default to apply
+  kubectl apply -f "${PLUGIN_YAML}"
 fi
