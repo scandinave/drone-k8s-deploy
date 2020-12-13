@@ -16,9 +16,17 @@ echo "${PLUGIN_KUBECONFIG}" > /plugin/config
 
 export KUBECONFIG=/plugin/config
 
-if [ -n "${PLUGIN_MODE}" ] && [ "${PLUGIN_MODE}" = "delete" ] ; then
-  kubectl delete -f "${PLUGIN_YAML}"
-else
-  # Default to apply
+# Always delete before apply to recreate deployment
+echo "Trying to delete a existing deployment..."
+kubectl delete -f "${PLUGIN_YAML}"
+echo "Deletion done"
+
+if [ "${PLUGIN_MODE}" != "delete" ] ; then
+  echo "Delete only mode activated. Stopping here"
+fi
+
+# Only apply if delete only mode is not set
+if [ -z "${PLUGIN_MODE}" ] || [ "${PLUGIN_MODE}" != "delete" ] ; then
+  echo "Applying the new deployment"
   kubectl apply -f "${PLUGIN_YAML}"
 fi
