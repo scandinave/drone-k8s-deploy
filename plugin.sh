@@ -21,7 +21,7 @@ echo "Trying to delete a existing deployment..."
 kubectl delete -f "${PLUGIN_YAML}"
 echo "Deletion done"
 
-if [ "${PLUGIN_MODE}" != "delete" ] ; then
+if [ "${PLUGIN_MODE}" = "delete" ] ; then
   echo "Delete only mode activated. Stopping here"
 fi
 
