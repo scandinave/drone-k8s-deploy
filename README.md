@@ -55,8 +55,8 @@ docs:
       oidc_configuration: <url_to_oidc_provider_well_known_endpoint>
       oidc_client_id: <client_id>
       oidc_client_secret: <client_secret>
-      oidc_user_id: <user_id>
-      oidc_user_secret: <user_secret>
+      oidc_username: <user_id>
+      oidc_password: <user_secret>
 ```
 
 For this method to work, you also need a proper keycloak and k8s cluster configured. 
